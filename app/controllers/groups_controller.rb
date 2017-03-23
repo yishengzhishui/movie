@@ -23,6 +23,7 @@ class GroupsController < ApplicationController
     @group.user =current_user
 
     if @group.save
+      current_user.join!(@group)
       redirect_to groups_path
     else
       render :new
@@ -44,6 +45,34 @@ class GroupsController < ApplicationController
     @group.destroy
     redirect_to groups_path, alert: "Movive delete"
   end
+
+
+  def join
+   @group = Group.find(params[:id])
+
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "收藏成功！"
+    else
+      flash[:warning] = "已收藏了！"
+    end
+
+    redirect_to group_path(@group)
+  end
+
+  def quit
+    @group = Group.find(params[:id])
+
+    if current_user.is_member_of?(@group)
+      current_user.quit!(@group)
+      flash[:alert] = "收藏已删除！"
+    else
+      flash[:warning] = "未收藏，无法删除"
+    end
+
+    redirect_to group_path(@group)
+  end
+
 
   private
 
