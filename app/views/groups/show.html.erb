@@ -1,9 +1,31 @@
 <div class="col-md-12">
   <div class="group">
+    <%= link_to("Write a review", new_group_review_path(@group), class: "btn btn-default btn-left")%>
     <% if current_user && current_user == @group.user%>
     <%= link_to("Edit", edit_group_path(@group), class: "btn btn-primary pull-right")%>
     <% end %>
   </div>
   <h2><%= @group.title %></h2>
   <p><%= @group.description %></p>
+  <table class="table">
+    <thead>
+     <tr>
+        <th>电影影评</th>
+        <th>发表者</th>
+        <th>发表时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.content %></td>
+          <td><%= review.user.email %></td>
+          <td><%= review.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= will_paginate @reviews%>
+  </div>
 </div>
