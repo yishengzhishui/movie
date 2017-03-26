@@ -18,8 +18,8 @@
           <td> <%= review.content %> </td>
           <td> <%= review.group.title %> </td>
           <td> <%= review.updated_at %> </td>
-          <td> <%= link_to('Edit', edit_group_review_path(review.group, review), class: "btn btn-default btn-xs") %></td>
-          <td> <%= link_to('Delete', group_review_path(review.group, review), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default btn-xs") %></td>
+          <td> <%= link_to('Edit', edit_group_review_path(review.group, review), class: "btn btn-primary btn-xs") %></td>
+          <td> <%= link_to('Delete', group_review_path(review.group, review), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-xs") %></td>
         </tr>
       <% end %>
     </tbody>
