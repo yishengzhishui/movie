@@ -44,7 +44,7 @@ class ReviewsController < ApplicationController
     @group = Group.find(params[:group_id])
     @review =Review.find(params[:id])
 
-    if current_user != @post.user
+    if current_user != @review.user
       redirect_to root_path, alert: "You have no permission"
     end
   end
