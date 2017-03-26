@@ -11,7 +11,7 @@
 </span>
     <%= link_to("Write a review", new_group_review_path(@group), class: "btn btn-success btn-left")%>
     <% if current_user && current_user == @group.user%>
-    <%= link_to("Edit", edit_group_path(@group), class: "btn btn-warning pull-right")%>
+    <%= link_to("Edit", edit_group_path(@group), class: "btn btn-info pull-right")%>
     <% end %>
   </div>
   <h2><%= @group.title %></h2>
