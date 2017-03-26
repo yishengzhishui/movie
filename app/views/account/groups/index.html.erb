@@ -14,15 +14,18 @@
     </thead>
 
     <tbody>
-      <% @groups.each do |group| %>
+      <% @groups.each do |g| %>
         <tr>
           <td> # </td>
-          <td> <%= link_to(group.title, group_path(group)) %> </td>
-          <td> <%= group.description %> </td>
-          <td> <%= group.reviews.count %> </td>
-          <td> <%= group.updated_at %> </td>
+          <td> <%= link_to(g.title, group_path(g)) %> </td>
+          <td> <%= g.description %> </td>
+          <td> <%= g.reviews.count %> </td>
+          <td> <%= g.updated_at %> </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <div class="text-center">
+    <%= will_paginate @groups %>
+  </div>
 </div>
