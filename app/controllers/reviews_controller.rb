@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy]
+  before_action :find_review_and_check_permission, only: [:edit, :update, :destroy]
   def new
     @group =Group.find(params[:group_id])
     @review =Review.new
@@ -19,14 +20,9 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @group =Group.find(params[:group_id])
-    @review =Review.find(params[:id])
   end
 
   def update
-    @group =Group.find(params[:group_id])
-    @review =Review.find(params[:id])
-
     if @review.update(review_params)
       redirect_to account_reviews_path ,notice: "update success"
     else
@@ -35,8 +31,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @group =Group.find(params[:group_id])
-    @review =Review.find(params[:id])
+
     @review.destroy
 
     redirect_to account_reviews_path, alert: "review deleted"
@@ -44,6 +39,16 @@ class ReviewsController < ApplicationController
 
 
   private
+
+  def find_review_and_check_permission
+    @group = Group.find(params[:group_id])
+    @review =Review.find(params[:id])
+
+    if current_user != @post.user
+      redirect_to root_path, alert: "You have no permission"
+    end
+  end
+
 
   def review_params
     params.require(:review).permit(:content)
